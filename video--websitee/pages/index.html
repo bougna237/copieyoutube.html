@@ -3,38 +3,184 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>yutub</title>
-    <link rel="stylesheet" href="../css/main.css">
-    <link rel="stylesheet" href="../css/video.css">
+    <title>YouTube-like Page</title>
+    <style>
+        /* Style général */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+
+        /* En-tête */
+        header {
+            background-color: #ff0000;
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        header input[type="text"] {
+            padding: 5px;
+            width: 300px;
+            border: none;
+            border-radius: 2px;
+        }
+
+        header button {
+            padding: 5px 10px;
+            background-color: #cc0000;
+            color: white;
+            border: none;
+            border-radius: 2px;
+            cursor: pointer;
+        }
+
+        /* Contenu principal */
+        main {
+            display: flex;
+            padding: 20px;
+        }
+
+        /* Section vidéo principale */
+        .video-player {
+            flex: 3;
+            margin-right: 20px;
+        }
+
+        .video-player iframe {
+            width: 100%;
+            height: 400px;
+            border: none;
+        }
+
+        /* Liste des vidéos */
+        .video-list {
+            flex: 1;
+        }
+
+        .video-item {
+            display: flex;
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+
+        .video-item img {
+            width: 120px;
+            height: 90px;
+            margin-right: 10px;
+        }
+
+        .video-item h3 {
+            margin: 0;
+            font-size: 16px;
+        }
+
+        .video-item p {
+            margin: 5px 0;
+            font-size: 14px;
+            color: #606060;
+        }
+    </style>
 </head>
 <body>
+    <!-- En-tête -->
     <header>
-        <h1>yutub</h1>
-        <nav>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="search.html">Search</a></li>
-                <li><a href="about.html">About</a></li>
-            </ul>
-        </nav>
+        <h1>YouTube-like</h1>
+        <div>
+            <input type="text" id="searchInput" placeholder="Rechercher des vidéos...">
+            <button onclick="searchVideos()">Rechercher</button>
+        </div>
     </header>
+
+    <!-- Contenu principal -->
     <main>
-        <section id="popular-videos">
-            <h2> Videos populaire</h2>
-            <div class="video-list">
-                <!-- Video items will be dynamically inserted here -->
-            </div>
-        </section>
-        <section id="recommended-videos">
-            <h2>Recommander pour vous</h2>
-            <div class="video-list">
-                <!-- Recommended video items will be dynamically inserted here -->
-            </div>
-        </section>
+        <!-- Lecteur vidéo -->
+        <div class="video-player">
+            <iframe id="mainVideo" src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen></iframe>
+        </div>
+
+        <!-- Liste des vidéos -->
+        <div class="video-list" id="videoList">
+            <!-- Les vidéos seront ajoutées dynamiquement ici -->
+        </div>
     </main>
-    <footer>
-        <p>2025Video Website</p>
-    </footer>
-    <script src="../js/main.js"></script>
+
+    <script>
+        // Données des vidéos (simulées)
+        const videos = [
+            {
+                title: "Video 1",
+                description: "Description de la vidéo 1",
+                thumbnail: "https://via.placeholder.com/120x90",
+                videoId: "dQw4w9WgXcQ"
+            },
+            {
+                title: "Video 2",
+                description: "Description de la vidéo 2",
+                thumbnail: "https://via.placeholder.com/120x90",
+                videoId: "y6120QOlsfU"
+            },
+            {
+                title: "Video 3",
+                description: "Description de la vidéo 3",
+                thumbnail: "https://via.placeholder.com/120x90",
+                videoId: "hT_nvWreIhg"
+            },
+            {
+                title: "Video 4",
+                description: "Description de la vidéo 4",
+                thumbnail: "https://via.placeholder.com/120x90",
+                videoId: "kJQP7kiw5Fk"
+            }
+        ];
+
+        // Fonction pour afficher les vidéos dans la liste
+        function displayVideos(videos) {
+            const videoList = document.getElementById('videoList');
+            videoList.innerHTML = ''; // Vider la liste actuelle
+
+            videos.forEach(video => {
+                const videoItem = document.createElement('div');
+                videoItem.className = 'video-item';
+                videoItem.innerHTML = `
+                    <img src="${video.thumbnail}" alt="${video.title}">
+                    <div>
+                        <h3>${video.title}</h3>
+                        <p>${video.description}</p>
+                    </div>
+                `;
+                videoItem.addEventListener('click', () => playVideo(video.videoId));
+                videoList.appendChild(videoItem);
+            });
+        }
+
+        // Fonction pour jouer une vidéo
+        function playVideo(videoId) {
+            const mainVideo = document.getElementById('mainVideo');
+            mainVideo.src = `https://www.youtube.com/embed/${videoId}`;
+        }
+
+        // Fonction pour rechercher des vidéos
+        function searchVideos() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const filteredVideos = videos.filter(video =>
+                video.title.toLowerCase().includes(searchTerm) ||
+                video.description.toLowerCase().includes(searchTerm)
+            );
+            displayVideos(filteredVideos);
+        }
+
+        // Afficher toutes les vidéos au chargement de la page
+        window.onload = () => displayVideos(videos);
+    </script>
 </body>
 </html>
