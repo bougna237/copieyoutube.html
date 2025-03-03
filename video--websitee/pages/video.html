@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/video.css">
+    <title>Video Page</title>
+</head>
+<body>
+    <header>
+        <h1>titre de la Video </h1>
+    </header>
+    <main>
+        <div class="video-container">
+            <video controls>
+                <source src="path/to/video.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+        <div class="video-info">
+            <h2>Description</h2>
+            <p>description de la vidéo</p>
+            <h3>Comments</h3>
+            <div class="comments-section">
+                <textarea placeholder="Leave a comment..."></textarea>
+                <button>Submit</button>
+                <div class="comments-list">
+                    <!-- Comments will be dynamically added here -->
+                </div>
+            </div>
+        </div>
+        <div class="recommended-videos">
+            <h3>Recommended Videos</h3>
+            <ul>
+                <li><a href="video.html">Recommended Video 1</a></li>
+                <li><a href="video.html">Recommended Video 2</a></li>
+                <li><a href="video.html">Recommended Video 3</a></li>
+            </ul>
+        </div>
+    </main>
+    <script src="../js/main.js"></script>
+    <script src="../js/video.js"></script>
+</body>
+</html>
